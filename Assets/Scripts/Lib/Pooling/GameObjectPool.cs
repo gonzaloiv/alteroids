@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 // Based on TheLiquidFire's: https://theliquidfire.wordpress.com/2015/07/06/object-pooling/
 public class GameObjectPool : IPool {
 
   #region Fields
+
+  public int ActiveObjects { get { return objects.Where(x => x.activeSelf).Count(); } } 
 
   private GameObject prefab;
   private List<GameObject> objects = new List<GameObject>();

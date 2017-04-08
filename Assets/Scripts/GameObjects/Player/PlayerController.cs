@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
-[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour {
 
   #region Fields Behaviour
 
-  [SerializeField] private float thrust = 0.0001f;
-  [SerializeField] private float rotationSpeed = 0.00001f;
+  private float THRUST = 6f;
+  private float ROTATION_SPEED = 6f;
+
   private Rigidbody2D rb;
 
   #endregion
@@ -37,15 +36,15 @@ public class PlayerController : MonoBehaviour {
   #region Event Behaviour
 
   void OnMoveUpInput(MoveUpInput moveUpInput) {
-    rb.AddForce(transform.up * thrust);
+    rb.AddForce(transform.up * THRUST);
   }
 
   void OnMoveRightInput(MoveRightInput moveRightInput) {
-    transform.Rotate(-Vector3.forward * rotationSpeed * Time.timeScale);
+    transform.Rotate(-Vector3.forward * ROTATION_SPEED);
   }
 
   void OnMoveLeftInput(MoveLeftInput moveLeftInput) {
-    transform.Rotate(Vector3.forward * rotationSpeed * Time.timeScale);
+    transform.Rotate(Vector3.forward * ROTATION_SPEED);
   }
 
   #endregion

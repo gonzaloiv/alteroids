@@ -2,15 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Config : MonoBehaviour {
+public class Config : MonoBehaviour {}
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+public enum Layer {
+  Board = 8,
+  Player = 9,
+  Meteors = 10
 }
