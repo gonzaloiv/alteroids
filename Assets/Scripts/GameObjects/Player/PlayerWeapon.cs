@@ -2,22 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class PlayerWeapon : MonoBehaviour {
 
   #region Mono Behaviour
 
   private int SHOT_AMOUNT = 20;
+  private float SHOT_SPEED = .1f;
 
   [SerializeField] private GameObject shotPrefab;
   private GameObjectPool shots;
+  private float shotTime;
 
   #endregion
 
   #region Mono Behaviour
 
   void Awake() {
-    shots = new GameObjectPool("ShotPool", shotPrefab, 10, transform.parent); 
+    shotTime = Time.time;
+    shots = new GameObjectPool("Shots", shotPrefab, 10, transform.parent); 
   }
 
   void OnEnable() {
@@ -28,12 +32,13 @@ public class PlayerWeapon : MonoBehaviour {
     EventManager.StopListening<SpaceInput>(OnSpaceInput);
   }
 
-  #endregion 
+  #endregion
 
   #region Event Behaviour
 
   void OnSpaceInput(SpaceInput spaceInput) {
-    if (shots.ActiveObjects < SHOT_AMOUNT) { 
+    if (Time.time > shotTime + SHOT_SPEED && shots.ActiveObjects < SHOT_AMOUNT) {
+      shotTime = Time.time;
       GameObject shot = shots.PopObject();
       shot.transform.position = transform.position + transform.up / 3;
       shot.transform.rotation = transform.rotation;

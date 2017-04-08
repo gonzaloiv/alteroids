@@ -2,10 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Config : MonoBehaviour {}
+public class Config {}
 
 public enum Layer {
   Board = 8,
   Player = 9,
-  Meteors = 10
+  Asteroids = 10
+}
+
+public enum AsteroidType {
+  Large,
+  Medium,
+  Small
 }

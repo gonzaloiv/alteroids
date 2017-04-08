@@ -6,8 +6,9 @@ public class PlayerController : MonoBehaviour {
 
   #region Fields Behaviour
 
-  private float THRUST = 6f;
-  private float ROTATION_SPEED = 6f;
+  private float THRUST = 0.5f;
+  private float ROTATION_SPEED = 4f;
+  private float DECELERATION = 0.99f;
 
   private Rigidbody2D rb;
 
@@ -17,6 +18,10 @@ public class PlayerController : MonoBehaviour {
 
   void Awake() {
     rb = GetComponent<Rigidbody2D>();
+  }
+
+  void Update() {
+    rb.velocity *= DECELERATION;
   }
 
   void OnEnable() {
@@ -48,5 +53,15 @@ public class PlayerController : MonoBehaviour {
   }
 
   #endregion
-	
+
+  #region Public Behaviour
+
+  public void Spawn() { // Resets the ship and spawns it in its original position
+    transform.position = Vector2.zero;
+    rb.velocity = Vector2.zero;
+    rb.angularVelocity = 0;
+  }
+
+  #endregion
+
 }

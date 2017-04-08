@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
+	#region Fields
+
+  [SerializeField] private GameObject asteroids;
+  private AsteroidSpawner asteroidSpawner;
+
+  #endregion
+
   #region Mono Behaviour
 
   void Awake() {
-    Debug.Log("Game awakening!");
+    asteroidSpawner = asteroids.GetComponent<AsteroidSpawner>();
   }
 
   #endregion 

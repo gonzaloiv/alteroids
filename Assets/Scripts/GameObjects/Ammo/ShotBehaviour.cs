@@ -21,6 +21,10 @@ public class ShotBehaviour : MonoBehaviour {
     rb.AddForce(transform.up * THRUST);
   }
 
+  void OnCollisionEnter2D(Collision2D collision2D) {
+    gameObject.SetActive(false);
+  }
+
   #endregion
 
 }
