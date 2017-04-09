@@ -7,8 +7,6 @@ public class AsteroidSpawner : MonoBehaviour {
 
   #region Fields
 
-  private const int WAVE_AMOUNT = 30;
-
   private Vector2 screenSize;
   [SerializeField] private GameObject[] asteroidsPrefabs;
   private GameObjectPool asteroidsLg;
@@ -27,12 +25,8 @@ public class AsteroidSpawner : MonoBehaviour {
     asteroidsSm = new GameObjectPool("AsteroidsSm", asteroidsPrefabs[2], 20, transform);
   }
 
-  void Start() {
-    SpawnAsteroids();
-  }
-
   void Update() {
-    if(asteroids.Where(x => x.activeSelf).Count() == 0)
+    if (asteroids.Where(x => x.activeSelf).Count() == 0)
       SpawnAsteroids();
   }
 
@@ -40,10 +34,25 @@ public class AsteroidSpawner : MonoBehaviour {
 
   #region Public Behaviour
 
-  public void SpawnAsteroids(int amount = WAVE_AMOUNT) {
-    for(int i = 0; i < amount; i++) {
-      GameObject asteroid = asteroidsLg.PopObject();
-      asteroid.transform.position = RandomAsteroidPosition();
+  public void SpawnAsteroids(int amount = 5, AsteroidType asteroidType = AsteroidType.Large, Vector2 position = default(Vector2)) {
+    for (int i = 0; i < amount; i++) {
+      GameObject asteroid;
+      switch (asteroidType) {
+        case AsteroidType.Large:
+          asteroid = asteroidsLg.PopObject();
+          break;
+        case AsteroidType.Medium:
+          asteroid = asteroidsMd.PopObject();
+          break;
+        case AsteroidType.Small:
+          asteroid = asteroidsSm.PopObject();
+          break;
+        default:
+          return;
+          break;
+      }
+      asteroid.transform.position = position != default(Vector2) ? position : RandomAsteroidPosition();
+	    asteroid.GetComponent<AsteroidBehaviour>().Direction = RandomAsteroidDirection();
       asteroids.Add(asteroid);
       asteroid.SetActive(true);
     }
@@ -55,9 +64,13 @@ public class AsteroidSpawner : MonoBehaviour {
 
   private Vector2 RandomAsteroidPosition() {
     Vector2 position = new Vector2(Random.Range(-screenSize.x, screenSize.x), Random.Range(-screenSize.y, screenSize.y));
-    while(Physics2D.OverlapCircle(position, 1))
+    while (Physics2D.OverlapCircle(position, 1))
       position = new Vector2(Random.Range(-screenSize.x, screenSize.x), Random.Range(-screenSize.y, screenSize.y));
     return position;
+  }
+
+  private Vector3 RandomAsteroidDirection() {
+    return new Vector3(0, 0, Random.Range(-90, 90));
   }
 
   #endregion

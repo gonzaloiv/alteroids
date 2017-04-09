@@ -13,5 +13,12 @@ public enum Layer {
 public enum AsteroidType {
   Large,
   Medium,
-  Small
+  Small,
+  None
+}
+
+public enum Scene {
+  Title,
+  Modes,
+  Mode01
 }

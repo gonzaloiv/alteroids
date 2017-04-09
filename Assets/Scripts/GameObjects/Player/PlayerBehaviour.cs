@@ -17,8 +17,10 @@ public class PlayerBehaviour : MonoBehaviour {
   }
 
   void OnCollisionEnter2D(Collision2D collision2D) {
-    if (collision2D.gameObject.layer == (int) Layer.Asteroids)
+    if (collision2D.gameObject.layer == (int) Layer.Asteroids) {
       playerController.Spawn();
+      EventManager.TriggerEvent(new PlayerHitEvent());
+    }
   }
 
   #endregion  

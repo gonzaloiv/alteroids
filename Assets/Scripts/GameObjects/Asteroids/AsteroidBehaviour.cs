@@ -6,9 +6,12 @@ public class AsteroidBehaviour : MonoBehaviour {
 
   #region Fields
 
-  private float THRUST = 1f;
   private Rigidbody2D rb;
-  private Vector2 direction;
+  private AsteroidSpawner asteroidSpawner;
+  private IAsteroid asteroid;
+
+  public Vector3 Direction { get { return direction; } set { direction = value; } }
+  private Vector3 direction;
 
   #endregion
 
@@ -16,27 +19,24 @@ public class AsteroidBehaviour : MonoBehaviour {
 
   void Awake() {
     rb = GetComponent<Rigidbody2D>();
-  }
-
-  void Update() {
-    transform.position = (Vector2) transform.position + direction * THRUST * Time.deltaTime;
+    asteroidSpawner = transform.parent.parent.GetComponent<AsteroidSpawner>();
+    asteroid = GetComponent<IAsteroid>();
   }
 
   void OnEnable() {
-    SetDirection();
+    transform.Rotate(direction);
+  }
+
+  void Update() {
+    transform.position = (Vector2) transform.position + (Vector2) transform.up * asteroid.Speed * Time.deltaTime;
   }
 
   void OnCollisionEnter2D(Collision2D collision2D) {
-    if (collision2D.gameObject.layer == (int) Layer.Player)
+    if (collision2D.gameObject.layer == (int) Layer.Player) {
       gameObject.SetActive(false);  
-  }
-
-  #endregion
-
-  #region Private Behaviour
-
-  private void SetDirection() {
-    direction = new Vector2(new int[] { -1, 1 }[Random.Range(0, 2)], new int[] { -1, 1 }[Random.Range(0, 2)]);
+      asteroidSpawner.SpawnAsteroids(asteroid.Pieces, (AsteroidType) (int) asteroid.Type + 1, transform.position);
+      EventManager.TriggerEvent(new AsteroidHitEvent(asteroid.Score));
+    }
   }
 
   #endregion

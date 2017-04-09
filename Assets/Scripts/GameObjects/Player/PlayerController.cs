@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour {
   private float DECELERATION = 0.99f;
 
   private Rigidbody2D rb;
+  private Animator anim;
 
   #endregion
 
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour {
 
   void Awake() {
     rb = GetComponent<Rigidbody2D>();
+    anim = GetComponent<Animator>();
   }
 
   void Update() {
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour {
     EventManager.StartListening<MoveUpInput>(OnMoveUpInput);
     EventManager.StartListening<MoveRightInput>(OnMoveRightInput);
     EventManager.StartListening<MoveLeftInput>(OnMoveLeftInput);
+    Spawn();
   }
 
   void OnDisable() {
@@ -60,6 +63,7 @@ public class PlayerController : MonoBehaviour {
     transform.position = Vector2.zero;
     rb.velocity = Vector2.zero;
     rb.angularVelocity = 0;
+    anim.Play("Spawn");
   }
 
   #endregion
