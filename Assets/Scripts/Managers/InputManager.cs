@@ -20,6 +20,8 @@ public class InputManager : MonoBehaviour {
 
       if (Input.GetKey(KeyCode.Space))
         EventManager.TriggerEvent(new SpaceInput());
+      if (Input.GetKey(KeyCode.Return))
+        EventManager.TriggerEvent(new ReturnInput());
 
     }
    

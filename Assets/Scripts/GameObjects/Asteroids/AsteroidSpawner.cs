@@ -49,7 +49,6 @@ public class AsteroidSpawner : MonoBehaviour {
           break;
         default:
           return;
-          break;
       }
       asteroid.transform.position = position != default(Vector2) ? position : RandomAsteroidPosition();
 	    asteroid.GetComponent<AsteroidBehaviour>().Direction = RandomAsteroidDirection();

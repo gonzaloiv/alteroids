@@ -9,7 +9,7 @@ public class PlayerWeapon : MonoBehaviour {
   #region Mono Behaviour
 
   private int SHOT_AMOUNT = 20;
-  private float SHOT_SPEED = .1f;
+  private float SHOT_SPEED = .175f;
 
   [SerializeField] private GameObject shotPrefab;
   private GameObjectPool shots;
