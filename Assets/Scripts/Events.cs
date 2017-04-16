@@ -13,6 +13,17 @@ public class ReturnInput : UnityEvent {}
 
 #endregion
 
+#region Modes Events
+
+public class SelectModeEvent : UnityEvent {
+  public SelectModeEvent() {
+    Debug.Log("SelectModeEvent");
+  }
+}
+
+#endregion
+
+
 #region Mode01 Events
 
 public class AsteroidHitEvent : UnityEvent {
@@ -25,7 +36,10 @@ public class AsteroidHitEvent : UnityEvent {
   }
 
 }
+
 public class PlayerHitEvent : UnityEvent {}
+public class PlayerShotEvent : UnityEvent {}
 public class GameOverEvent : UnityEvent {}
 
 #endregion
+

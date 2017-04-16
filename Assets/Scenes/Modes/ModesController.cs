@@ -87,6 +87,7 @@ public class ModesController : MonoBehaviour {
       selectedMode.GetComponent<Animator>().Play("Idle");
     selectedMode = modes[index];
     selectedMode.GetComponent<Animator>().Play("BlinkingText");
+    EventManager.TriggerEvent(new SelectModeEvent());
   }
 
   #endregion

@@ -66,6 +66,10 @@ public class PlayerController : MonoBehaviour {
     anim.Play("Spawn");
   }
 
+  public void Disable() {
+    gameObject.SetActive(false);
+  }
+
   #endregion
 
 }

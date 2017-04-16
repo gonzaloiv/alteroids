@@ -9,6 +9,7 @@ public class Mode01Controller : MonoBehaviour {
 
   private const int WAVE_AMOUNT = 5;
 
+  [SerializeField] private GameObject gameOverScreen;
   [SerializeField] private GameObject asteroids;
   private AsteroidSpawner asteroidSpawner;
 
@@ -37,7 +38,17 @@ public class Mode01Controller : MonoBehaviour {
   #region Event Behaviour
 
   void OnGameOverEvent(GameOverEvent gameOverEvent) {
-    SceneManager.LoadScene(0);
+	StartCoroutine(GameOverRoutine());
+  }
+
+  #endregion
+
+  #region Private Behaviour
+
+  private IEnumerator GameOverRoutine() {
+  	gameOverScreen.SetActive(true);
+  	yield return new WaitForSeconds(1);
+	  SceneManager.LoadScene(0);
   }
 
   #endregion
