@@ -11,11 +11,12 @@ public class ModesController : MonoBehaviour {
 
   private const int WAVE_AMOUNT = 5;
   private const float INPUT_TIME = 0.2f;
+  private const int COLS = 4;
 
   [SerializeField] private Text[] modes;
   private Text selectedMode;
   private int selectedModeIndex = 0;
-  float lastInput;
+  private float lastInput;
 
   [SerializeField] private GameObject asteroids;
   private AsteroidSpawner asteroidSpawner;
@@ -39,6 +40,8 @@ public class ModesController : MonoBehaviour {
   void OnEnable() {
     EventManager.StartListening<MoveRightInput>(OnMoveRightInput);
     EventManager.StartListening<MoveLeftInput>(OnMoveLeftInput);
+    EventManager.StartListening<MoveUpInput>(OnMoveUpInput);
+    EventManager.StartListening<MoveDownInput>(OnMoveDownInput);
     EventManager.StartListening<SpaceInput>(OnSpaceInput);
     EventManager.StartListening<ReturnInput>(OnReturnInput);
   }
@@ -46,6 +49,8 @@ public class ModesController : MonoBehaviour {
   void OnDisable() {
     EventManager.StopListening<MoveRightInput>(OnMoveRightInput);
     EventManager.StopListening<MoveLeftInput>(OnMoveLeftInput);
+    EventManager.StopListening<MoveUpInput>(OnMoveUpInput);
+    EventManager.StopListening<MoveDownInput>(OnMoveDownInput);
     EventManager.StopListening<SpaceInput>(OnSpaceInput);
     EventManager.StopListening<ReturnInput>(OnReturnInput);
   }
@@ -55,18 +60,24 @@ public class ModesController : MonoBehaviour {
   #region Event Behaviour
 
   void OnMoveRightInput(MoveRightInput moveRightInput) {
-    if (Time.time > lastInput + INPUT_TIME && selectedModeIndex < modes.Length - 1) {
-      lastInput = Time.time;
-      selectedModeIndex += 1;
-      SelectMode(selectedModeIndex);
-    }
+    if (Time.time > lastInput + INPUT_TIME && selectedModeIndex < modes.Length - 1)
+      SelectMode(selectedModeIndex + 1);
   }
 
   void OnMoveLeftInput(MoveLeftInput moveLeftInput) {
-    if (Time.time > lastInput + INPUT_TIME && selectedModeIndex > 0) {
-      lastInput = Time.time;
-      selectedModeIndex -= 1;
-      SelectMode(selectedModeIndex);
+    if (Time.time > lastInput + INPUT_TIME && selectedModeIndex > 0)
+      SelectMode(selectedModeIndex - 1);
+  }
+
+  void OnMoveUpInput(MoveUpInput moveUpInput) {
+    if (Time.time > lastInput + INPUT_TIME && selectedModeIndex > COLS - 1)
+      SelectMode(selectedModeIndex - COLS);
+  }
+
+  void OnMoveDownInput(MoveDownInput moveDownInput) {
+    Debug.Log("CODE REACHED");
+    if (Time.time > lastInput + INPUT_TIME && selectedModeIndex < modes.Length - COLS) {
+      SelectMode(selectedModeIndex + COLS);
     }
   }
 
@@ -83,11 +94,17 @@ public class ModesController : MonoBehaviour {
   #region Private Behaviour
 
   private void SelectMode(int index) {
-    if (selectedMode != null)
-      selectedMode.GetComponent<Animator>().Play("Idle");
-    selectedMode = modes[index];
-    selectedMode.GetComponent<Animator>().Play("BlinkingText");
-    EventManager.TriggerEvent(new SelectModeEvent());
+
+      lastInput = Time.time;
+      selectedModeIndex = index;
+
+      if (selectedMode != null)
+        selectedMode.GetComponent<Animator>().Play("Idle");
+      selectedMode = modes[index];
+      selectedMode.GetComponent<Animator>().Play("BlinkingText");
+
+      EventManager.TriggerEvent(new SelectModeEvent());
+
   }
 
   #endregion

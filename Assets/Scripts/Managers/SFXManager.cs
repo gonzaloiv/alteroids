@@ -13,6 +13,8 @@ public class SFXManager : MonoBehaviour {
   [SerializeField] private AudioClip asteroidHit;
   [SerializeField] private AudioClip playerShot;
   [SerializeField] private AudioClip playerHit;
+  [SerializeField] private AudioClip playerSpawn;
+  [SerializeField] private AudioClip gameOver;
 
   private AudioSource audioSource;
 
@@ -25,40 +27,30 @@ public class SFXManager : MonoBehaviour {
   }
 
   void OnEnable () {
-
-    // Menus
     EventManager.StartListening<SelectModeEvent>(OnSelectModeEvent);
-
-    // Game Mechanics
     EventManager.StartListening<AsteroidHitEvent>(OnAsteroidHitEvent);
     EventManager.StartListening<PlayerShotEvent>(OnPlayerShotEvent);
     EventManager.StartListening<PlayerHitEvent>(OnPlayerHitEvent);
-
+    EventManager.StartListening<PlayerSpawnEvent>(OnPlayerSpawnEvent);
+    EventManager.StartListening<GameOverEvent>(OnGameOverEvent);
   }
 
   void OnDisable () {
-
-    // Menus
-    EventManager.StartListening<SelectModeEvent>(OnSelectModeEvent);
-
-    // Game Mechanics
-    EventManager.StartListening<AsteroidHitEvent>(OnAsteroidHitEvent);
-    EventManager.StartListening<PlayerShotEvent>(OnPlayerShotEvent);
-    EventManager.StartListening<PlayerHitEvent>(OnPlayerHitEvent);
-
+    EventManager.StopListening<SelectModeEvent>(OnSelectModeEvent);
+    EventManager.StopListening<AsteroidHitEvent>(OnAsteroidHitEvent);
+    EventManager.StopListening<PlayerShotEvent>(OnPlayerShotEvent);
+    EventManager.StopListening<PlayerSpawnEvent>(OnPlayerSpawnEvent);
+    EventManager.StopListening<GameOverEvent>(OnGameOverEvent);
   }
 
   #endregion
 
   #region Event Behaviour
 
-  // Menus
 
   void OnSelectModeEvent(SelectModeEvent selectModeEvent) {
     audioSource.PlayOneShot(selectMode);
   }
-
-  // Game Mechanics
 
   void OnAsteroidHitEvent(AsteroidHitEvent asteroidHitEvent) {
     audioSource.PlayOneShot(asteroidHit);
@@ -70,6 +62,14 @@ public class SFXManager : MonoBehaviour {
 
   void OnPlayerHitEvent(PlayerHitEvent playerHitEvent) {
     audioSource.PlayOneShot(playerHit);
+  }
+
+  void OnPlayerSpawnEvent(PlayerSpawnEvent playerSpawnEvent) {
+    audioSource.PlayOneShot(playerSpawn);
+  }
+
+  void OnGameOverEvent(GameOverEvent gameOverEvent) {
+    audioSource.PlayOneShot(gameOver);
   }
 
   #endregion

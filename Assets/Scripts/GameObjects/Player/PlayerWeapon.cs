@@ -21,7 +21,7 @@ public class PlayerWeapon : MonoBehaviour {
 
   void Awake() {
     shotTime = Time.time;
-    shots = new GameObjectPool("Shots", shotPrefab, 10, transform.parent); 
+    shots = new GameObjectPool("PlayerShots", shotPrefab, 10, transform.parent); 
   }
 
   void OnEnable() {

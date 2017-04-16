@@ -7,11 +7,16 @@ public class Mode01Controller : MonoBehaviour {
 
 	#region Fields
 
-  private const int WAVE_AMOUNT = 5;
+  private const int INITIAL_AMOUNT = 5;
+  private int INCREMENT_AMOUNT = 2;
 
-  [SerializeField] private GameObject gameOverScreen;
+  [SerializeField] private GameObject gameOverScreenPrefab;
+  private GameObject gameOverScreen;
+
   [SerializeField] private GameObject asteroids;
   private AsteroidSpawner asteroidSpawner;
+
+  private int current_wave = 0;
 
   #endregion
 
@@ -19,18 +24,18 @@ public class Mode01Controller : MonoBehaviour {
 
   void Awake() {
     asteroidSpawner = asteroids.GetComponent<AsteroidSpawner>();
-  }
-
-  void Start() {
-    asteroidSpawner.SpawnAsteroids(WAVE_AMOUNT);
+    gameOverScreen = Instantiate(gameOverScreenPrefab, transform);
+    gameOverScreen.SetActive(false);
   }
 
   void OnEnable() {
     EventManager.StartListening<GameOverEvent>(OnGameOverEvent);
+    EventManager.StartListening<WaveOverEvent>(OnWaveOverEvent);
   }
 
   void OnDisable() {
     EventManager.StopListening<GameOverEvent>(OnGameOverEvent);
+    EventManager.StopListening<WaveOverEvent>(OnWaveOverEvent);
   }
 
   #endregion 
@@ -38,7 +43,12 @@ public class Mode01Controller : MonoBehaviour {
   #region Event Behaviour
 
   void OnGameOverEvent(GameOverEvent gameOverEvent) {
-	StartCoroutine(GameOverRoutine());
+	  StartCoroutine(GameOverRoutine());
+  }
+
+  void OnWaveOverEvent(WaveOverEvent waveOverEvent) {
+    asteroidSpawner.SpawnAsteroids(INITIAL_AMOUNT + INCREMENT_AMOUNT * current_wave);
+    current_wave++;
   }
 
   #endregion

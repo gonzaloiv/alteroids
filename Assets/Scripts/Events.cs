@@ -1,5 +1,5 @@
-﻿using UnityEngine.Events;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 #region Input Events
 
@@ -15,11 +15,7 @@ public class ReturnInput : UnityEvent {}
 
 #region Modes Events
 
-public class SelectModeEvent : UnityEvent {
-  public SelectModeEvent() {
-    Debug.Log("SelectModeEvent");
-  }
-}
+public class SelectModeEvent : UnityEvent {}
 
 #endregion
 
@@ -39,7 +35,8 @@ public class AsteroidHitEvent : UnityEvent {
 
 public class PlayerHitEvent : UnityEvent {}
 public class PlayerShotEvent : UnityEvent {}
+public class PlayerSpawnEvent : UnityEvent {}
 public class GameOverEvent : UnityEvent {}
+public class WaveOverEvent : UnityEvent {}
 
 #endregion
-

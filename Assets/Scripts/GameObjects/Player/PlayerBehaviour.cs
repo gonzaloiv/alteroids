@@ -6,26 +6,29 @@ public class PlayerBehaviour : MonoBehaviour {
 
   #region Fields
 
-  private PlayerController playerController;
+  private IPlayerController playerController;
   private Player player;
+
+  private const float COLLISION_TIME = 1f;
+  private float lastCollision;
 
   #endregion
 
   #region Mono Behaviour
 
   void Awake() {
-    playerController = GetComponent<PlayerController>();
+    playerController = GetComponent<IPlayerController>();
     player = GetComponent<Player>();
   }
 
   void OnCollisionEnter2D(Collision2D collision2D) {
-    if (collision2D.gameObject.layer == (int) Layer.Asteroids) {
-      EventManager.TriggerEvent(new PlayerHitEvent());
-      if (player.Lives == 0) {
-        playerController.Disable();
-      } else {
-        playerController.Spawn();
-      }
+    if (Time.time > lastCollision + COLLISION_TIME && collision2D.gameObject.layer == (int) Layer.Asteroids) {
+        lastCollision = Time.time;
+        EventManager.TriggerEvent(new PlayerHitEvent());
+        if (player.Lives > 0)
+          playerController.Respawn();
+        else // In case of Game Over
+          playerController.Disable();
     }
   }
 

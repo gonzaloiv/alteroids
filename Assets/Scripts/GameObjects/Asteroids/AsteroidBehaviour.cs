@@ -6,6 +6,8 @@ public class AsteroidBehaviour : MonoBehaviour {
 
   #region Fields
 
+  [SerializeField] private ParticleSystem explosionParticlesPrefab;
+  private ParticleSystem explosionParticles;
   private Rigidbody2D rb;
   private AsteroidSpawner asteroidSpawner;
   private IAsteroid asteroid;
@@ -18,6 +20,7 @@ public class AsteroidBehaviour : MonoBehaviour {
   #region Mono Behaviour
 
   void Awake() {
+    explosionParticles = Instantiate(explosionParticlesPrefab);
     rb = GetComponent<Rigidbody2D>();
     asteroidSpawner = transform.parent.parent.GetComponent<AsteroidSpawner>();
     asteroid = GetComponent<IAsteroid>();
@@ -33,10 +36,20 @@ public class AsteroidBehaviour : MonoBehaviour {
 
   void OnCollisionEnter2D(Collision2D collision2D) {
     if (collision2D.gameObject.layer == (int) Layer.Player) {
-      gameObject.SetActive(false);  
+      PlayParticles(explosionParticles);
+      gameObject.SetActive(false);
       asteroidSpawner.SpawnAsteroids(asteroid.Pieces, (AsteroidType) (int) asteroid.Type + 1, transform.position);
       EventManager.TriggerEvent(new AsteroidHitEvent(asteroid.Score));
     }
+  }
+
+  #endregion
+
+  #region Private Behaviour
+
+  private void PlayParticles(ParticleSystem particles) {
+    particles.transform.position = transform.position;
+    particles.Play();
   }
 
   #endregion

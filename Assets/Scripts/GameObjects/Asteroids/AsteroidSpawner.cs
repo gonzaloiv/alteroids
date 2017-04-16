@@ -27,7 +27,7 @@ public class AsteroidSpawner : MonoBehaviour {
 
   void Update() {
     if (asteroids.Where(x => x.activeSelf).Count() == 0)
-      SpawnAsteroids();
+      EventManager.TriggerEvent(new WaveOverEvent());
   }
 
   #endregion

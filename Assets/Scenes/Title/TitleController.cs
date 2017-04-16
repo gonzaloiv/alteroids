@@ -31,10 +31,12 @@ public class TitleController : MonoBehaviour {
 
   void OnEnable() {
     EventManager.StartListening<SpaceInput>(OnSpaceInput);
+    EventManager.StartListening<ReturnInput>(OnReturnInput);
   }
 
   void OnDisable() {
     EventManager.StopListening<SpaceInput>(OnSpaceInput);
+    EventManager.StopListening<ReturnInput>(OnReturnInput);
   }
 
   #endregion 
@@ -42,6 +44,10 @@ public class TitleController : MonoBehaviour {
   #region Event Behaviour
 
   void OnSpaceInput(SpaceInput spaceInput) {
+    SceneManager.LoadScene(1);
+  }
+
+  void OnReturnInput(ReturnInput returnInput) {
     SceneManager.LoadScene(1);
   }
 
