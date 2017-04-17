@@ -27,11 +27,11 @@ public class PlayerRotationController : MonoBehaviour {
   #region Event Behaviour
 
   void OnMoveRightInput(MoveRightInput moveRightInput) {
-    transform.Rotate(-Vector3.forward * ROTATION_SPEED);
+    transform.Rotate(-Vector3.forward * ROTATION_SPEED * Time.timeScale);
   }
 
   void OnMoveLeftInput(MoveLeftInput moveLeftInput) {
-    transform.Rotate(Vector3.forward * ROTATION_SPEED);
+    transform.Rotate(Vector3.forward * ROTATION_SPEED * Time.timeScale);
   }
 
   #endregion

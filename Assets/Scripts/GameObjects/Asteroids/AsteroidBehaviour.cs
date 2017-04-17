@@ -20,7 +20,7 @@ public class AsteroidBehaviour : MonoBehaviour {
   #region Mono Behaviour
 
   void Awake() {
-    explosionParticles = Instantiate(explosionParticlesPrefab);
+    explosionParticles = Instantiate(explosionParticlesPrefab, transform.parent);
     rb = GetComponent<Rigidbody2D>();
     asteroidSpawner = transform.parent.parent.GetComponent<AsteroidSpawner>();
     asteroid = GetComponent<IAsteroid>();

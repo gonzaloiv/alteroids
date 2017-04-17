@@ -28,11 +28,13 @@ public class ModeController : MonoBehaviour {
   void OnEnable() {
     EventManager.StartListening<GameOverEvent>(OnGameOverEvent);
     EventManager.StartListening<WaveOverEvent>(OnWaveOverEvent);
+    EventManager.StartListening<EscapeInput>(OnEscapeInput);
   }
 
   void OnDisable() {
     EventManager.StopListening<GameOverEvent>(OnGameOverEvent);
     EventManager.StopListening<WaveOverEvent>(OnWaveOverEvent);
+    EventManager.StopListening<EscapeInput>(OnEscapeInput);
   }
 
   #endregion 
@@ -48,6 +50,10 @@ public class ModeController : MonoBehaviour {
     current_wave++;
   }
 
+  void OnEscapeInput(EscapeInput escapeInput) {
+    SceneManager.LoadScene((int) Scene.Title);
+  }
+
   #endregion
 
   #region Private Behaviour
@@ -55,7 +61,7 @@ public class ModeController : MonoBehaviour {
   private IEnumerator GameOverRoutine() {
   	gameOverScreen.SetActive(true);
   	yield return new WaitForSeconds(1);
-	  SceneManager.LoadScene(0);
+	  SceneManager.LoadScene((int) Scene.Title);
   }
 
   #endregion

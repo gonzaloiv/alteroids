@@ -8,12 +8,15 @@ public class Player : MonoBehaviour {
 
   private int INITIAL_SCORE = 0;
   private int INITIAL_LIVES = 3;
+  private int EXTRA_LIFE_SCORE = 10000;
 
   public int Score { get { return score; } } 
   private int score;
 
   public int Lives { get { return lives; } } 
   private int lives;
+
+  private int extraLife = 0;
 
   #endregion 
 
@@ -35,8 +38,19 @@ public class Player : MonoBehaviour {
   #region Event Behaviour
 
   void OnAsteroidHitEvent(AsteroidHitEvent asteroidHitEvent) {
+
+    // Score
     score = score + asteroidHitEvent.Score;
     HUDController.UpdateScore(score);
+
+    // Extra life
+    extraLife = extraLife + asteroidHitEvent.Score;
+    if(extraLife >  EXTRA_LIFE_SCORE) {
+      extraLife = extraLife - EXTRA_LIFE_SCORE;
+      lives++;
+      HUDController.UpdateLives(lives);
+    }
+
   }
 
   void OnPlayerHitEvent(PlayerHitEvent playerHitEvent) {

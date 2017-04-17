@@ -24,6 +24,8 @@ public class InputManager : MonoBehaviour {
         EventManager.TriggerEvent(new SpaceInput());
       if (Input.GetKey(KeyCode.Return))
         EventManager.TriggerEvent(new ReturnInput());
+      if (Input.GetKey(KeyCode.Escape))
+        EventManager.TriggerEvent(new EscapeInput());
 
     }
    

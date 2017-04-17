@@ -23,5 +23,9 @@ public enum Scene {
   Mode01,
   Mode02,
   Mode03,
-  Mode04
+  Mode04,
+  Mode05,
+  Mode06,
+  Mode07,
+  Mode08
 }

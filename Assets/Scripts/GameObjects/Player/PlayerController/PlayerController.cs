@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour {
   #region Fields Behaviour
 
   private float DECELERATION = 0.99f;
-  private float SPACE_UNIT = 0.6f;
+  private float SPACE_UNIT = 0.5f;
 
   [SerializeField] private ParticleSystem explosionParticles;
 

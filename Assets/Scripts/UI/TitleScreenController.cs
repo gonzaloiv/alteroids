@@ -44,11 +44,11 @@ public class TitleScreenController : MonoBehaviour {
   #region Event Behaviour
 
   void OnSpaceInput(SpaceInput spaceInput) {
-    SceneManager.LoadScene(1);
+    SceneManager.LoadScene((int) Scene.Modes);
   }
 
   void OnReturnInput(ReturnInput returnInput) {
-    SceneManager.LoadScene(1);
+    SceneManager.LoadScene((int) Scene.Modes);
   }
 
   #endregion
