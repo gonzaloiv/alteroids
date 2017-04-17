@@ -51,7 +51,6 @@ public class AsteroidSpawner : MonoBehaviour {
           return;
       }
       asteroid.transform.position = position != default(Vector2) ? position : RandomAsteroidPosition();
-	    asteroid.GetComponent<AsteroidBehaviour>().Direction = RandomAsteroidDirection();
       asteroids.Add(asteroid);
       asteroid.SetActive(true);
     }
@@ -66,10 +65,6 @@ public class AsteroidSpawner : MonoBehaviour {
     while (Physics2D.OverlapCircle(position, 1))
       position = new Vector2(Random.Range(-screenSize.x, screenSize.x), Random.Range(-screenSize.y, screenSize.y));
     return position;
-  }
-
-  private Vector3 RandomAsteroidDirection() {
-    return new Vector3(0, 0, Random.Range(-90, 90));
   }
 
   #endregion

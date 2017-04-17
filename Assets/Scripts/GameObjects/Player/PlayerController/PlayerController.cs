@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour {
   #region Fields Behaviour
 
   private float DECELERATION = 0.99f;
-  private float SPACE_UNIT = 0.5f;
+  private float SPACE_UNIT = 1f;
 
   [SerializeField] private ParticleSystem explosionParticles;
 
@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour {
     int tries = 8;
     Vector2 position = Vector2.zero;
 
-    while (Physics2D.OverlapCircle(position, SPACE_UNIT, (int) Layer.Asteroids) && tries > 0) {
+    while (Physics2D.OverlapCircle(position, SPACE_UNIT, (int) Layer.Enemies) && tries > 0) {
       position = new Vector2(new float[] { -SPACE_UNIT, SPACE_UNIT }[Random.Range(0, 2)], new float[] { SPACE_UNIT, SPACE_UNIT }[Random.Range(0, 2)]);
       tries--;
     }

@@ -6,7 +6,7 @@ public class ShotBehaviour : MonoBehaviour {
 
   #region Fields
 
-  private float THRUST = 1000;
+  [SerializeField] private float THRUST = 1000;
   private Rigidbody2D rb;
 
   #endregion

@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IAsteroid {
+public interface IEnemy {
 
-  AsteroidType Type { get; }
-  int Pieces { get; } 
-  float Speed { get; }
   int Score { get; }
 
 }

@@ -23,13 +23,13 @@ public class Player : MonoBehaviour {
 	#region Mono Behaviour
 
   void OnEnable() {
-    EventManager.StartListening<AsteroidHitEvent>(OnAsteroidHitEvent);
+    EventManager.StartListening<EnemyHitEvent>(OnEnemyHitEvent);
     EventManager.StartListening<PlayerHitEvent>(OnPlayerHitEvent);
     Reset();
   }
 
   void OnDisable() {
-    EventManager.StopListening<AsteroidHitEvent>(OnAsteroidHitEvent);
+    EventManager.StopListening<EnemyHitEvent>(OnEnemyHitEvent);
     EventManager.StopListening<PlayerHitEvent>(OnPlayerHitEvent);
   }
 
@@ -37,14 +37,14 @@ public class Player : MonoBehaviour {
 
   #region Event Behaviour
 
-  void OnAsteroidHitEvent(AsteroidHitEvent asteroidHitEvent) {
+  void OnEnemyHitEvent(EnemyHitEvent enemyHitEvent) {
 
     // Score
-    score = score + asteroidHitEvent.Score;
+    score = score + enemyHitEvent.Score;
     HUDController.UpdateScore(score);
 
     // Extra life
-    extraLife = extraLife + asteroidHitEvent.Score;
+    extraLife = extraLife + enemyHitEvent.Score;
     if(extraLife >  EXTRA_LIFE_SCORE) {
       extraLife = extraLife - EXTRA_LIFE_SCORE;
       lives++;

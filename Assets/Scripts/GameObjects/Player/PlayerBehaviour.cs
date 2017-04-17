@@ -22,7 +22,7 @@ public class PlayerBehaviour : MonoBehaviour {
   }
 
   void OnCollisionEnter2D(Collision2D collision2D) {
-    if (Time.time > lastCollision + COLLISION_TIME && collision2D.gameObject.layer == (int) Layer.Asteroids) {
+    if (Time.time > lastCollision + COLLISION_TIME && collision2D.gameObject.layer == (int) Layer.Enemies) {
         lastCollision = Time.time;
         EventManager.TriggerEvent(new PlayerHitEvent());
         if (player.Lives > 0)

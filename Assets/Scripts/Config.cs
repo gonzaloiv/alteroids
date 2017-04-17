@@ -7,7 +7,7 @@ public class Config {}
 public enum Layer {
   Board = 8,
   Player = 9,
-  Asteroids = 10
+  Enemies = 10
 }
 
 public enum AsteroidType {
@@ -15,6 +15,11 @@ public enum AsteroidType {
   Medium,
   Small,
   None
+}
+
+public enum UFOType {
+  Large,
+  Small
 }
 
 public enum Scene {

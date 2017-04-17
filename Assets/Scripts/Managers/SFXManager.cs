@@ -10,7 +10,7 @@ public class SFXManager : MonoBehaviour {
   [SerializeField] private AudioClip selectMode;
 
   // Game Mechanics
-  [SerializeField] private AudioClip asteroidHit;
+  [SerializeField] private AudioClip[] enemyHits;
   [SerializeField] private AudioClip playerShot;
   [SerializeField] private AudioClip playerHit;
   [SerializeField] private AudioClip playerSpawn;
@@ -28,7 +28,7 @@ public class SFXManager : MonoBehaviour {
 
   void OnEnable () {
     EventManager.StartListening<SelectModeEvent>(OnSelectModeEvent);
-    EventManager.StartListening<AsteroidHitEvent>(OnAsteroidHitEvent);
+    EventManager.StartListening<EnemyHitEvent>(OnEnemyHitEvent);
     EventManager.StartListening<PlayerShotEvent>(OnPlayerShotEvent);
     EventManager.StartListening<PlayerHitEvent>(OnPlayerHitEvent);
     EventManager.StartListening<PlayerSpawnEvent>(OnPlayerSpawnEvent);
@@ -37,7 +37,7 @@ public class SFXManager : MonoBehaviour {
 
   void OnDisable () {
     EventManager.StopListening<SelectModeEvent>(OnSelectModeEvent);
-    EventManager.StopListening<AsteroidHitEvent>(OnAsteroidHitEvent);
+    EventManager.StopListening<EnemyHitEvent>(OnEnemyHitEvent);
     EventManager.StopListening<PlayerShotEvent>(OnPlayerShotEvent);
     EventManager.StopListening<PlayerSpawnEvent>(OnPlayerSpawnEvent);
     EventManager.StopListening<GameOverEvent>(OnGameOverEvent);
@@ -52,8 +52,8 @@ public class SFXManager : MonoBehaviour {
     audioSource.PlayOneShot(selectMode);
   }
 
-  void OnAsteroidHitEvent(AsteroidHitEvent asteroidHitEvent) {
-    audioSource.PlayOneShot(asteroidHit);
+  void OnEnemyHitEvent(EnemyHitEvent enemyHitEvent) {
+    audioSource.PlayOneShot(enemyHits[Random.Range(0, enemyHits.Length)]);
   }
 
   void OnPlayerShotEvent(PlayerShotEvent playerShotEvent) {

@@ -22,12 +22,12 @@ public class SelectModeEvent : UnityEvent {}
 
 #region Mode01 Events
 
-public class AsteroidHitEvent : UnityEvent {
+public class EnemyHitEvent : UnityEvent {
 
   public int Score { get { return score; } } 
   private int score;
 
-  public AsteroidHitEvent(int score) {
+  public EnemyHitEvent(int score) {
     this.score = score;
   }
 

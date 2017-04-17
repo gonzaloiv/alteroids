@@ -75,7 +75,6 @@ public class ModesScreenController : MonoBehaviour {
   }
 
   void OnMoveDownInput(MoveDownInput moveDownInput) {
-    Debug.Log("CODE REACHED");
     if (Time.time > lastInput + INPUT_TIME && selectedModeIndex < modes.Length - COLS) {
       SelectMode(selectedModeIndex + COLS);
     }
