@@ -20,5 +20,8 @@ public enum AsteroidType {
 public enum Scene {
   Title,
   Modes,
-  Mode01
+  Mode01,
+  Mode02,
+  Mode03,
+  Mode04
 }

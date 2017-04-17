@@ -6,7 +6,7 @@ public class PlayerBehaviour : MonoBehaviour {
 
   #region Fields
 
-  private IPlayerController playerController;
+  private PlayerController playerController;
   private Player player;
 
   private const float COLLISION_TIME = 1f;
@@ -17,7 +17,7 @@ public class PlayerBehaviour : MonoBehaviour {
   #region Mono Behaviour
 
   void Awake() {
-    playerController = GetComponent<IPlayerController>();
+    playerController = GetComponent<PlayerController>();
     player = GetComponent<Player>();
   }
 
