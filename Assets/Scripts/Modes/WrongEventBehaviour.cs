@@ -12,6 +12,8 @@ public class WrongEventBehaviour : MonoBehaviour {
   [SerializeField] private bool wrongMoveUpInput = false;
 
   private AudioSource audioSource;
+  private const float INPUT_TIME = 0.3f;
+  private float lastInput;
 
   #endregion
 
@@ -37,12 +39,23 @@ public class WrongEventBehaviour : MonoBehaviour {
 
   void OnSpaceInput(SpaceInput spaceInput) {
     if(wrongSpaceInput)
-      audioSource.Play();
+      Play();
   }
 
   void OnMoveUpInput(MoveUpInput moveUpInput) {
     if(wrongMoveUpInput)
+      Play();
+  }
+
+  #endregion
+
+  #region Private Behaviour
+
+  private void Play() {
+    if (Time.time > lastInput + INPUT_TIME) {
+      lastInput = Time.time;
       audioSource.Play();
+    }
   }
 
   #endregion

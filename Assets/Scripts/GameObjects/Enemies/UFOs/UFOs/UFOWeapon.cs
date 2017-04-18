@@ -11,8 +11,9 @@ public class UFOWeapon : MonoBehaviour {
   [SerializeField] private float SHOT_SPEED = .175f;
   [SerializeField] private GameObject shotPrefab;
 
-  private GameObject player;
   private GameObjectPool shots;
+  private Renderer rend;
+  private GameObject player;
   private float shotTime;
   private IEnumerator shootingRoutine;
 
@@ -42,8 +43,9 @@ public class UFOWeapon : MonoBehaviour {
 
   #region Public Behaviour
 
-  public void Initialize(GameObject player) {
+  public void Initialize(GameObject player, Renderer rend) {
     this.player = player;
+    this.rend = rend;
   }
 
   #endregion
@@ -51,11 +53,13 @@ public class UFOWeapon : MonoBehaviour {
   #region Private Behaviour
 
   private IEnumerator ShootingRoutine() {
-    yield return new WaitForSeconds(SHOT_SPEED);
-    GameObject shot = shots.PopObject();
-    shot.transform.position = transform.position + transform.up / 3;
-    shot.transform.rotation = transform.rotation;
-    shot.SetActive(true);
+    while(gameObject.activeSelf) {
+      yield return new WaitForSeconds(SHOT_SPEED);
+      GameObject shot = shots.PopObject();
+      shot.transform.position = transform.position + transform.up / 3;
+      shot.transform.rotation = transform.rotation;
+      shot.SetActive(true);
+    }
   }
 
   private void FocusOnPlayer() {

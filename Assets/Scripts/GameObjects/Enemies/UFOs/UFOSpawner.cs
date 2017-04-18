@@ -43,7 +43,7 @@ public class UFOSpawner : MonoBehaviour {
       default:
         return;
     }
-    ufo.GetComponentInChildren<UFOWeapon>().Initialize(player);
+    ufo.GetComponentInChildren<UFOWeapon>().Initialize(player, ufo.GetComponent<Renderer>());
     ufo.transform.position = RandomUFOPosition();
     ufo.SetActive(true);
   }
