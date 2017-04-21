@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Config {}
+public class Config {
+  public static float TIME_SCALE = 1f;
+}
 
 public enum Layer {
   Board = 8,

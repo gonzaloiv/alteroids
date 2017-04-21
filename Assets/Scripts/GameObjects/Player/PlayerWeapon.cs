@@ -12,6 +12,7 @@ public class PlayerWeapon : MonoBehaviour {
   private float SHOT_SPEED = .175f;
 
   [SerializeField] private GameObject shotPrefab;
+  [SerializeField] private GameObject playerShots;
   private GameObjectPool shots;
   private float shotTime;
 
@@ -21,7 +22,7 @@ public class PlayerWeapon : MonoBehaviour {
 
   void Awake() {
     shotTime = Time.time;
-    shots = new GameObjectPool("PlayerShots", shotPrefab, 10, transform.parent); 
+    shots = new GameObjectPool("PlayerShots", shotPrefab, 10, playerShots.transform); 
   }
 
   void OnEnable() {

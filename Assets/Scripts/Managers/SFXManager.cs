@@ -39,6 +39,7 @@ public class SFXManager : MonoBehaviour {
     EventManager.StopListening<SelectModeEvent>(OnSelectModeEvent);
     EventManager.StopListening<EnemyHitEvent>(OnEnemyHitEvent);
     EventManager.StopListening<PlayerShotEvent>(OnPlayerShotEvent);
+    EventManager.StopListening<PlayerHitEvent>(OnPlayerHitEvent);
     EventManager.StopListening<PlayerSpawnEvent>(OnPlayerSpawnEvent);
     EventManager.StopListening<GameOverEvent>(OnGameOverEvent);
   }

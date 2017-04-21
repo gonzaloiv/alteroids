@@ -6,7 +6,7 @@ public class InputManager : MonoBehaviour {
 
   #region Fields
 
-  private const float INPUT_TIME = 0.1f;
+  private const float INPUT_TIME = 0.03f;
   private float lastInput;
 
   #endregion
@@ -37,15 +37,13 @@ public class InputManager : MonoBehaviour {
           EventManager.TriggerEvent(new SpaceInput());
         if (Input.GetKey(KeyCode.Return))
           EventManager.TriggerEvent(new ReturnInput());
-        if (Input.GetKey(KeyCode.Escape))
-          EventManager.TriggerEvent(new EscapeInput());
       }
 
     }
    
     // UI input
     if (Input.GetKeyDown(KeyCode.Escape))
-      EventManager.TriggerEvent(new SpaceInput());
+		  EventManager.TriggerEvent(new EscapeInput());
 
   }
 

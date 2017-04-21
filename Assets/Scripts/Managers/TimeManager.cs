@@ -7,7 +7,7 @@ public class TimeManager : Singleton<TimeManager> {
 
   #region Fields
 
-  [SerializeField] private float modeTimeScale = 1;
+  [SerializeField] private float modeTimeScale;
 
   public static float DeltaTime { get { return deltaTime; } }
 
@@ -18,17 +18,18 @@ public class TimeManager : Singleton<TimeManager> {
 
   #region Mono Behaviour
 
-  void Awake() {
-    StartTime();
-  }
-
   void Start() {
     lastframetime = Time.realtimeSinceStartup;
+    AlterTimeScale(modeTimeScale);
   }
 
   void Update() {
     deltaTime = Time.realtimeSinceStartup - lastframetime;
     lastframetime = Time.realtimeSinceStartup;
+  }
+
+  void OnDestroy() {
+    AlterTimeScale(Config.TIME_SCALE);
   }
 
   #endregion
@@ -40,11 +41,11 @@ public class TimeManager : Singleton<TimeManager> {
   }
 
   public static void StartTime() {
-    Time.timeScale = Instance.modeTimeScale;
+    Time.timeScale = Config.TIME_SCALE;
   }
 
-  public static void AlterTimeScale(float percentage) {
-    Time.timeScale = Time.timeScale * percentage;
+  public static void AlterTimeScale(float timeScale) {
+    Time.timeScale = timeScale;
   }
 
   #endregion

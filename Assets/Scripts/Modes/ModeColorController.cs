@@ -4,13 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using System;
-using UnityEditor;
 
 public class ModeColorController : MonoBehaviour {
 
   #region Fields
 
   [SerializeField] private Camera cam;
+  [SerializeField] private GameObject asteroids;
+  [SerializeField] private GameObject player;
+
   private List<Renderer> renderers = new List<Renderer>();
   private List<Text> texts = new List<Text>();
   private List<RawImage> images = new List<RawImage>();
@@ -38,11 +40,11 @@ public class ModeColorController : MonoBehaviour {
   #region Event Behaviour
 
   void OnEnemyHitEvent(EnemyHitEvent enemyHitEvent) {
-    ChangeColor();
+    InvertColors();
   }
 
   void OnPlayerHitEvent(PlayerHitEvent PlayerHitEvent) {
-    ChangeColor();
+    InvertColors();
   }
 
   #endregion
@@ -52,22 +54,26 @@ public class ModeColorController : MonoBehaviour {
   private void InitialSetup() {
     texts = GameObject.FindObjectsOfType(typeof(Text)).Cast<Text>().ToList();
     images = GameObject.FindObjectsOfType(typeof(RawImage)).Cast<RawImage>().ToList();
-    renderers = GameObject.FindObjectsOfTypeAll(typeof(Renderer)).Cast<Renderer>().ToList();
   }
 
-  private void ChangeColor() {
+  private void RenderersSetup() {
+    cam.gameObject.GetComponentsInChildren<Renderer>(true).ToList().ForEach(x => renderers.Add(x));
+    player.GetComponentsInChildren<Renderer>(true).ToList().ForEach(x => renderers.Add(x));
+    asteroids.GetComponentsInChildren<Renderer>(true).ToList().ForEach(x => renderers.Add(x));
+  }
+
+  private void InvertColors() {
 
     cam.backgroundColor = cam.backgroundColor != Color.white ? Color.white : Color.black;
 
+    if (renderers.Count == 0)
+      RenderersSetup();
+
     foreach (Renderer rend in renderers) {
-      try {
-        if (cam.backgroundColor == Color.black)
-          rend.material.color = Color.white;
-        else
-          rend.material.color = Color.black;
-      } catch (Exception ex) {
-        Debug.Log("Object already inactive.");
-      }
+      if (cam.backgroundColor == Color.black)
+        rend.material.color = Color.white;
+      else
+        rend.material.color = Color.black;
     }
 
     foreach (Text text in texts) {
