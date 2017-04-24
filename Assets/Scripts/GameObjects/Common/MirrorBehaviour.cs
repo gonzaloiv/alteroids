@@ -18,7 +18,7 @@ public class MirrorBehaviour : MonoBehaviour {
     screenSize = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
   }
 
-  void Update() {
+  void FixedUpdate() {
 
     if (transform.position.x > screenSize.x) {
       transform.position = new Vector2(screenSize.x, -transform.position.y);

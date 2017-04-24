@@ -44,7 +44,7 @@ public class PlayerWeapon : MonoBehaviour {
       shot.transform.position = transform.position + transform.up / 3;
       shot.transform.rotation = transform.rotation;
       shot.SetActive(true);
-      EventManager.TriggerEvent(new PlayerShotEvent());
+      EventManager.TriggerEvent(new PlayerShotEvent(shot));
     }
   }
 

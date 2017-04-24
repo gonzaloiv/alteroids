@@ -5,5 +5,6 @@ using UnityEngine;
 public interface IEnemy {
 
   int Score { get; }
+  int Lives { get; }
 
 }

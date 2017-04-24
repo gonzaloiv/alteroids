@@ -28,13 +28,14 @@ public class ModesScreenController : MonoBehaviour {
   void Awake() {
     asteroidSpawner = asteroids.GetComponent<AsteroidSpawner>();
     lastInput = Time.time;
-    SelectMode(selectedModeIndex);
   }
 
   void Start() {
     asteroidSpawner.SpawnAsteroids(WAVE_AMOUNT, AsteroidType.Large);
     asteroidSpawner.SpawnAsteroids(WAVE_AMOUNT, AsteroidType.Medium);
     asteroidSpawner.SpawnAsteroids(WAVE_AMOUNT, AsteroidType.Small);
+	selectedModeIndex = UnityEngine.Random.Range(0, modes.Length);
+	SelectMode(selectedModeIndex);
   }
 
   void OnEnable() {

@@ -64,10 +64,9 @@ public class ModeColorController : MonoBehaviour {
 
   private void InvertColors() {
 
-    cam.backgroundColor = cam.backgroundColor != Color.white ? Color.white : Color.black;
+    RenderersSetup();
 
-    if (renderers.Count == 0)
-      RenderersSetup();
+    cam.backgroundColor = cam.backgroundColor != Color.white ? Color.white : Color.black;
 
     foreach (Renderer rend in renderers) {
       if (cam.backgroundColor == Color.black)

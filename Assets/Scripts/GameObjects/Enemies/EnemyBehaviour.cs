@@ -10,6 +10,8 @@ public class EnemyBehaviour : MonoBehaviour {
   private ParticleSystem explosionParticles;
   private IEnemy enemy;
 
+  private int currentLives;
+
   #endregion
 
   #region Mono Behaviour
@@ -19,11 +21,17 @@ public class EnemyBehaviour : MonoBehaviour {
     enemy = GetComponent<IEnemy>();
   }
 
+  void OnEnable() {
+    currentLives = enemy.Lives;
+  }
+
   void OnCollisionEnter2D(Collision2D collision2D) {
     if (collision2D.gameObject.layer == (int) Layer.Player) {
       PlayParticles(explosionParticles);
-      gameObject.SetActive(false);
       EventManager.TriggerEvent(new EnemyHitEvent(enemy.Score));
+      currentLives--;
+      if(currentLives <= 0)
+        gameObject.SetActive(false);
     }
   }
 

@@ -6,7 +6,7 @@ public class MusicManager : MonoBehaviour {
 
   #region Fields
 
-  private const float PITCH_RATIO = 0.03f;
+  [SerializeField] private float PITCH_RATIO = 0.01f;
   private const float MAX_PITCH = 1.8f;
 
   private AudioSource audioSource;
@@ -14,7 +14,7 @@ public class MusicManager : MonoBehaviour {
 
   #endregion
 
-	#region Mono Behaviour
+  #region Mono Behaviour
 
   void Awake() {
     audioSource = GetComponent<AudioSource>();
@@ -41,8 +41,10 @@ public class MusicManager : MonoBehaviour {
   #region Event Behaviour
 
   void OnEnemyHitEvent(EnemyHitEvent enemyHitEvent) {
-    if(audioSource.pitch < MAX_PITCH)
+    if (audioSource.pitch < MAX_PITCH) {
       audioSource.pitch = audioSource.pitch + PITCH_RATIO;
+//      audioSource.Play();
+    }
   }
 
   void OnWaveOverEvent(WaveOverEvent waveOverEvent) {

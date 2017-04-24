@@ -9,10 +9,13 @@ public class AsteroidSpawner : MonoBehaviour {
 
   [SerializeField] private bool AreMeteoroids = false;
   [SerializeField] private GameObject[] asteroidsPrefabs;
+
+  public List<GameObject> Asteroids { get { return asteroids; } }
+  private List<GameObject> asteroids = new List<GameObject>();
+
   private GameObjectPool asteroidsLg;
   private GameObjectPool asteroidsMd;
   private GameObjectPool asteroidsSm;
-  private List<GameObject> asteroids = new List<GameObject>();
   private Vector2 screenSize;
 
   #endregion

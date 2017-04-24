@@ -33,8 +33,18 @@ public class EnemyHitEvent : UnityEvent {
 
 }
 
+public class PlayerShotEvent : UnityEvent {
+
+  public GameObject Shot { get { return shot; } }
+  private GameObject shot;
+
+  public PlayerShotEvent(GameObject shot) {
+    this.shot = shot;
+  }
+  
+}
+
 public class PlayerHitEvent : UnityEvent {}
-public class PlayerShotEvent : UnityEvent {}
 public class PlayerSpawnEvent : UnityEvent {}
 public class GameOverEvent : UnityEvent {}
 public class WaveOverEvent : UnityEvent {}

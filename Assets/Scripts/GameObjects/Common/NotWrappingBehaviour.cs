@@ -17,7 +17,7 @@ public class NotWrappingBehaviour : MonoBehaviour {
     screenSize = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
   }
 
-  void Update() {
+  void FixedUpdate() {
     if (transform.position.x > screenSize.x)
       gameObject.SetActive(false);
     if (transform.position.x < -screenSize.x)
