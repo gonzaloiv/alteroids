@@ -6,7 +6,7 @@ public class PlayerTranslationController : MonoBehaviour {
 
   #region Fields Behaviour
 
-  private float THRUST = 0.5f;
+  private float THRUST = 0.3f;
   [SerializeField] private ParticleSystem jetParticles;
   private Rigidbody2D rb;
 

@@ -10,6 +10,8 @@ public class WrongEventBehaviour : MonoBehaviour {
 
   [SerializeField] private bool wrongSpaceInput = false;
   [SerializeField] private bool wrongMoveUpInput = false;
+  [SerializeField] private bool wrongMoveRightInput = false;
+  [SerializeField] private bool wrongMoveLeftInput = false;
 
   private AudioSource audioSource;
   private const float INPUT_TIME = 0.3f;
@@ -26,11 +28,15 @@ public class WrongEventBehaviour : MonoBehaviour {
   void OnEnable(){
     EventManager.StartListening<SpaceInput>(OnSpaceInput);
     EventManager.StartListening<MoveUpInput>(OnMoveUpInput);
+    EventManager.StartListening<MoveRightInput>(OnMoveRightInput);
+    EventManager.StartListening<MoveLeftInput>(OnMoveLeftInput);
   }
 
   void OnDisable(){
     EventManager.StopListening<SpaceInput>(OnSpaceInput);
     EventManager.StopListening<MoveUpInput>(OnMoveUpInput);
+    EventManager.StopListening<MoveRightInput>(OnMoveRightInput);
+    EventManager.StopListening<MoveLeftInput>(OnMoveLeftInput);
   }
 
   #endregion
@@ -44,6 +50,16 @@ public class WrongEventBehaviour : MonoBehaviour {
 
   void OnMoveUpInput(MoveUpInput moveUpInput) {
     if(wrongMoveUpInput)
+      Play();
+  }
+
+  void OnMoveRightInput(MoveRightInput moveRightInput) {
+    if(wrongMoveRightInput)
+      Play();
+  }
+
+  void OnMoveLeftInput(MoveLeftInput moveLeftInput) {
+    if(wrongMoveLeftInput)
       Play();
   }
 

@@ -15,8 +15,7 @@ public enum Layer {
 public enum AsteroidType {
   Large,
   Medium,
-  Small,
-  None
+  Small
 }
 
 public enum UFOType {

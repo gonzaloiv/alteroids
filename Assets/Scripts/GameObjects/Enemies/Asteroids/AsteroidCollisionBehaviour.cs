@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class AsteroidCollisionBehaviour : MonoBehaviour {
 
@@ -19,8 +20,10 @@ public class AsteroidCollisionBehaviour : MonoBehaviour {
   }
 
   void OnCollisionEnter2D(Collision2D collision2D) {
-    if (collision2D.gameObject.layer == (int) Layer.Player)
-      asteroidSpawner.SpawnAsteroids(asteroid.Pieces, (AsteroidType) (int) asteroid.Type + 1, transform.position);
+    if (collision2D.gameObject.layer == (int) Layer.Player) {
+      AsteroidType asteroidType = (int) asteroid.Type < Enum.GetNames(typeof(AsteroidType)).Length - 1 ? asteroid.Type + 1 : asteroid.Type; 
+      asteroidSpawner.SpawnAsteroids(asteroid.Pieces, asteroidType, transform.position);
+    }
   }
 
   #endregion

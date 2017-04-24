@@ -7,12 +7,13 @@ public class AsteroidSpawner : MonoBehaviour {
 
   #region Fields
 
-  private Vector2 screenSize;
+  [SerializeField] private bool AreMeteoroids = false;
   [SerializeField] private GameObject[] asteroidsPrefabs;
   private GameObjectPool asteroidsLg;
   private GameObjectPool asteroidsMd;
   private GameObjectPool asteroidsSm;
   private List<GameObject> asteroids = new List<GameObject>();
+  private Vector2 screenSize;
 
   #endregion
 
@@ -64,6 +65,8 @@ public class AsteroidSpawner : MonoBehaviour {
     Vector2 position = new Vector2(Random.Range(-screenSize.x, screenSize.x), Random.Range(-screenSize.y, screenSize.y));
     while (Physics2D.OverlapCircle(position, 1))
       position = new Vector2(Random.Range(-screenSize.x, screenSize.x), Random.Range(-screenSize.y, screenSize.y));
+    if(AreMeteoroids)
+      position = new Vector2(position.x, -screenSize.y - 1); // Sustracts one unit to avoid the wrapping effect
     return position;
   }
 

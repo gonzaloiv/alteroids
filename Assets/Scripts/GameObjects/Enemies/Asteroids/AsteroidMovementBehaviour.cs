@@ -6,8 +6,8 @@ public class AsteroidMovementBehaviour : MonoBehaviour {
 
   #region Fields
 
+  [SerializeField] private int[] angle;
   private IAsteroid asteroid;
-  private Vector3 direction;
 
   #endregion
 
@@ -16,22 +16,13 @@ public class AsteroidMovementBehaviour : MonoBehaviour {
   void Awake() {
     asteroid = GetComponent<IAsteroid>();
   }
-
+    
   void OnEnable() {
-    direction = RandomAsteroidDirection();
-    transform.Rotate(direction);
+    transform.Rotate(new Vector3(0, 0, Random.Range(angle[0], angle[1])));
   }
 
   void Update() {
     transform.position = (Vector2) transform.position + (Vector2) transform.up * asteroid.Speed * Time.deltaTime;
-  }
-
-  #endregion
-
-  #region Private Behaviour
-
-  private Vector3 RandomAsteroidDirection() {
-    return new Vector3(0, 0, Random.Range(-90, 90));
   }
 
   #endregion

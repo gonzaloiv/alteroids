@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class AsteroidSm : MonoBehaviour, IAsteroid {
 
-  public AsteroidType Type { get { return AsteroidType.Small; } }
-  public int Pieces { get { return 0; } }
-  public float Speed { get { return 3; } } 
-  public int Score { get { return 100; } }
-  
+  public AsteroidType Type { get { return type; } }
+  [SerializeField] private AsteroidType type = AsteroidType.Small;
+
+  public int Pieces { get { return pieces; } }
+  [SerializeField] private int pieces = 0;
+
+  public float Speed { get { return speed; } }
+  [SerializeField] private int speed = 3;
+    
+  public int Score { get { return score; } }
+  [SerializeField] private int score = 100;
+
 }
